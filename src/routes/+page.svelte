@@ -247,7 +247,7 @@
         line-height: 0.75;
         align-items: center;
         justify-content: center;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
@@ -256,7 +256,6 @@
     }
 
     article {
-      transition: 0.3s ease;
       margin-top: 2.25rem;
       border-top: 1px solid var(--accent);
       margin-top: 0rem;

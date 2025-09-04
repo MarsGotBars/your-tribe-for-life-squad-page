@@ -44,7 +44,7 @@ export async function load({ url }) {
       // Verwerk de mugshot data
       const { data: mugshotData } = await mugshotResponse.json();
 
-      const customHeight = 320;
+      const customHeight = 500;
 
       // Koppel de mugshot data aan de bestaande (membersData) als een object
       member.mugshot = {
