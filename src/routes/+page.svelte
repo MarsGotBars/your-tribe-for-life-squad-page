@@ -301,3 +301,13 @@ function removeOldImages() {
     object-position: center;
     animation: clip-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  @keyframes clip-in {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+</style>
