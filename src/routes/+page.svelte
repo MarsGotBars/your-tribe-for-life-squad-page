@@ -4,6 +4,9 @@
   let { data } = $props();
   const members = data.membersData;
 
+  // Media query check for large screens
+  let isLargeScreen = $state(false);
+
   // Variables
   let mouseY = $state(0);
   let isHovering = $state(false);
@@ -22,56 +25,61 @@
 
   // Muis Enter
   function handleMouseEnter(event) {
-  // Als de muis over de person container gaat
-  isHovering = true;
-  // Vind de img element
-  const targetImg = event.target.closest("details").querySelector("img");
-  
-  if (imgHistory.at(-1) === targetImg.src) {
-    return; // Don't add duplicate
+    // Only enable hover effect on large screens
+    if (!isLargeScreen) return;
+
+    // Als de muis over de person container gaat
+    isHovering = true;
+    // Vind de img element
+    const targetImg = event.target.closest("details").querySelector("img");
+
+    if (imgHistory.at(-1) === targetImg.src) {
+      return; // Don't add duplicate
+    }
+    // Cancel alle bestaande removal timers
+    removalTimers.forEach((timer) => clearTimeout(timer));
+    // Reset de removalTimers array
+    removalTimers = [];
+
+    // Voeg de images toe aan de imgHistory array
+    imgHistory = [...imgHistory, targetImg.src];
+
+    // Creëer en voeg de nieuwe img element toe aan de floatContainer
+    const newImg = document.createElement("img");
+    newImg.src = targetImg.src;
+    newImg.alt = targetImg.alt
+      ? targetImg.alt
+      : "Mugshot van " + targetImg.dataset.name;
+    floatContainer.appendChild(newImg);
+
+    // Start een nieuwe removal chain
+    const timer = setTimeout(() => {
+      removeOldImages();
+    }, 400);
+    // Voeg de timer toe aan de removalTimers array
+    removalTimers.push(timer);
   }
-  // Cancel alle bestaande removal timers
-  removalTimers.forEach(timer => clearTimeout(timer));
-  // Reset de removalTimers array
-  removalTimers = [];
-  
-  // Voeg de images toe aan de imgHistory array
-  imgHistory = [...imgHistory, targetImg.src];
-  
-  // Creëer en voeg de nieuwe img element toe aan de floatContainer
-  const newImg = document.createElement("img");
-  newImg.src = targetImg.src;
-  newImg.alt = targetImg.alt ? targetImg.alt : "Mugshot van " + targetImg.dataset.name;
-  floatContainer.appendChild(newImg);
-  
-  // Start een nieuwe removal chain
-  const timer = setTimeout(() => {
-    removeOldImages();
-  }, 400);
-  // Voeg de timer toe aan de removalTimers array
-  removalTimers.push(timer);
-}
 
   // Verwijder de oude images
-function removeOldImages() {
-  // Als er meer dan 1 image in de imgHistory array is en er meer dan 1 image in de floatContainer is
-  if (imgHistory.length > 1 && floatContainer.children.length > 1) {
-    // Verwijder de eerste image uit de imgHistory array
-    imgHistory = imgHistory.slice(1);
-    
-    if (floatContainer.firstElementChild) {
-      // Verwijder de eerste image uit de floatContainer
-      floatContainer.removeChild(floatContainer.firstElementChild);
-    }
-    
-    // Als er meer dan 1 image in de imgHistory array is
-    if (imgHistory.length > 1) {
-      const timer = setTimeout(removeOldImages, 400);
-      // Voeg de timer toe aan de removalTimers array
-      removalTimers.push(timer);
+  function removeOldImages() {
+    // Als er meer dan 1 image in de imgHistory array is en er meer dan 1 image in de floatContainer is
+    if (imgHistory.length > 1 && floatContainer.children.length > 1) {
+      // Verwijder de eerste image uit de imgHistory array
+      imgHistory = imgHistory.slice(1);
+
+      if (floatContainer.firstElementChild) {
+        // Verwijder de eerste image uit de floatContainer
+        floatContainer.removeChild(floatContainer.firstElementChild);
+      }
+
+      // Als er meer dan 1 image in de imgHistory array is
+      if (imgHistory.length > 1) {
+        const timer = setTimeout(removeOldImages, 400);
+        // Voeg de timer toe aan de removalTimers array
+        removalTimers.push(timer);
+      }
     }
   }
-}
 
   // Muis Leave
   function handleMouseLeave() {
@@ -80,18 +88,42 @@ function removeOldImages() {
 
   // Mount eventListener
   onMount(() => {
+    // Set up media query
+    const mediaQuery = window.matchMedia("(min-width: 62.5rem)");
+
+    // Set initial value
+    isLargeScreen = mediaQuery.matches;
+
+    // Listen for changes
+    const handleMediaChange = (e) => {
+      isLargeScreen = e.matches;
+      // Reset hover state when switching to small screen
+      if (!e.matches) {
+        isHovering = false;
+        imgHistory = [];
+        if (floatContainer) {
+          floatContainer.innerHTML = "";
+        }
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleMediaChange);
+
     window.addEventListener("mousemove", updateMousePosition);
-    return () => window.removeEventListener("mousemove", updateMousePosition);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaChange);
+      window.removeEventListener("mousemove", updateMousePosition);
+    };
   });
 </script>
 
 <picture
   class="float"
-  data-active={isHovering ? 'shown' : 'hidden'}
+  data-active={isHovering ? "shown" : "hidden"}
   style="top: {mouseY}px;"
   bind:this={floatContainer}
 >
-
 </picture>
 <main class="person-container">
   {#each members as member, index}
@@ -102,7 +134,7 @@ function removeOldImages() {
     >
       <summary>
         <div class="name-birthdate-container">
-          <h2>{member.name}</h2>
+          <h2 class="md">{member.name}</h2>
           <p class="birthdate">
             {member.age ? member.age + " Jaar" : "Leeftijd onbekend"}
           </p>
@@ -142,20 +174,23 @@ function removeOldImages() {
           <img
             src={`${member.mugshot.src}&format=jpg`}
             alt="Mugshot van {member.name}"
-            data-name={member.name} 
+            data-name={member.name}
             width={member.mugshot.width}
             height={member.mugshot.height}
             loading={index >= 12 ? "lazy" : "eager"}
           />
         </picture>
-        <p>{member.bio}</p>
-        <a
-          class="githubhandle"
-          href="https://github.com/{member.github_handle}"
-          aria-label="Github link"
-        >
-          <p>Github</p>
-        </a>
+        <div class="group">
+          <p>{member.bio ? member.bio : "Ik heb niks opgeschreven :)"}</p>
+
+          <a
+            class="githubhandle"
+            href="https://github.com/{member.github_handle}"
+            aria-label="Github link"
+          >
+            <span>Github</span>
+          </a>
+        </div>
       </article>
     </details>
   {/each}
@@ -182,7 +217,7 @@ function removeOldImages() {
     border-bottom: 1px solid var(--accent);
 
     &:open {
-      border-bottom: none;
+      border-bottom: transparent;
     }
 
     @media (min-width: 50rem) {
@@ -207,14 +242,16 @@ function removeOldImages() {
       h2 {
         margin: 0;
         color: var(--text);
-        font-size: 2rem;
-        overflow: hidden;
       }
 
       .birthdate {
         margin: 0;
         font-size: 1.25rem;
         color: var(--text);
+        padding-top: 0.5rem;
+        @media (min-width: 50rem) {
+          padding-top: unset;
+        }
       }
 
       .cross {
@@ -224,16 +261,30 @@ function removeOldImages() {
     }
 
     article {
+      transition: 0.3s ease;
       margin-top: 2.25rem;
       border-top: 1px solid var(--accent);
       margin-top: 0rem;
       padding-top: 1rem;
+      display: flex;
+      gap: 1.125rem;
+      .group {
+        max-width: 33%;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-direction: column;
+        @media (min-width: 62.5rem) {
+          max-width: min(70ch, 50%);
+        }
+      }
 
       picture {
         display: inline-block;
-        width: 100%;
-        max-width: 32rem;
-
+        max-width: 50%;
+        @media (min-width: 62.5rem) {
+          display: none;
+        }
         img {
           width: 100%;
           max-width: 100%;
@@ -262,7 +313,7 @@ function removeOldImages() {
     all: unset;
     cursor: pointer;
 
-    p {
+    span {
       font-size: 1.25rem;
       padding: 1rem 0;
     }
@@ -272,13 +323,15 @@ function removeOldImages() {
     position: fixed;
     top: 0;
     transform: translateY(-50%);
-    right: 20vw;
+    right: 15vw;
     width: 18.75rem;
     height: 20rem;
     background-color: transparent;
     pointer-events: none;
     display: grid;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     &[data-active="shown"] {
       opacity: 1;
