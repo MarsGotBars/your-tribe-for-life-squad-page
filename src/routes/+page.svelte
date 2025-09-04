@@ -47,7 +47,7 @@
   // Start een nieuwe removal chain
   const timer = setTimeout(() => {
     removeOldImages();
-  }, 200);
+  }, 400);
   // Voeg de timer toe aan de removalTimers array
   removalTimers.push(timer);
 }
