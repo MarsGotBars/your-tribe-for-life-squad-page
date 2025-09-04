@@ -264,8 +264,6 @@ function removeOldImages() {
 
     p {
       font-size: 1.25rem;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
       padding: 1rem 0;
     }
   }
