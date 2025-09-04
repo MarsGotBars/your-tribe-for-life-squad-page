@@ -85,6 +85,14 @@ function removeOldImages() {
   });
 </script>
 
+<picture
+  class="float"
+  data-active={isHovering ? 'shown' : 'hidden'}
+  style="top: {mouseY}px;"
+  bind:this={floatContainer}
+>
+
+</picture>
 <style>
   @import "./App.css";
 
