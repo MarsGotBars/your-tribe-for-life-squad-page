@@ -1,6 +1,6 @@
 export async function load({ url }) {
   const members = await fetch(
-    "https://fdnd.directus.app/items/person?fields=name,profilecard,mugshot,birthdate&filter[squads][squad_id][cohort][_eq]=2526&filter[squads][squad_id][tribe][name][_eq]=FDND%20Jaar%202"
+    "https://fdnd.directus.app/items/person?fields=name,bio,profilecard,mugshot,birthdate&filter[squads][squad_id][cohort][_eq]=2526&filter[squads][squad_id][tribe][name][_eq]=FDND%20Jaar%202"
   );
 
   const { data: membersData } = await members.json();
@@ -44,7 +44,7 @@ export async function load({ url }) {
       // Verwerk de mugshot data
       const { data: mugshotData } = await mugshotResponse.json();
 
-      const customHeight = 320;
+      const customHeight = 500;
 
       // Koppel de mugshot data aan de bestaande (membersData) als een object
       member.mugshot = {
