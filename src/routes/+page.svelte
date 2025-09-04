@@ -219,12 +219,6 @@
       border-color: #4e4e4e;
     }
 
-    @supports (color: oklch(50% 0.2 30)) {
-      &:hover summary {
-        background: color-mix(in oklch, var(--bg) 95%, darkgray);
-      }
-    }
-
     summary {
       position: relative;
       display: flex;
@@ -232,9 +226,6 @@
       align-items: center;
       cursor: pointer;
       padding-block: 0.63rem;
-      transition:
-        padding 0.3s ease,
-        background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       @media (min-width: 50rem) {
         padding-block: 2.25rem;
       }
