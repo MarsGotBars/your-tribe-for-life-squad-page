@@ -268,5 +268,36 @@ function removeOldImages() {
     }
   }
 
+  .float {
+    position: fixed;
+    top: 0;
+    transform: translateY(-50%);
+    right: 20vw;
+    width: 18.75rem;
+    height: 20rem;
+    background-color: transparent;
+    pointer-events: none;
+    display: grid;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-</style>
+    &[data-active="shown"] {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    &[data-active="hidden"] {
+      opacity: 0;
+      filter: blur(40px);
+    }
+  }
+
+  :global(.float :is(img, source)) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    animation: clip-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
