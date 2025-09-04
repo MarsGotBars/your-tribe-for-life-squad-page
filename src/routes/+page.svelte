@@ -222,13 +222,13 @@ function removeOldImages() {
         align-items: center;
       }
     }
-    
+
     article {
       margin-top: 2.25rem;
       border-top: 1px solid var(--accent);
       margin-top: 0rem;
       padding-top: 1rem;
-      
+
       picture {
         display: inline-block;
         width: 100%;
