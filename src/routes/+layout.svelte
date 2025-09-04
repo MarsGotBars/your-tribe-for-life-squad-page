@@ -9,23 +9,20 @@
 </svelte:head>
 
 <header>
-	<h1>Frontend Design & Development</h1>
-	<p>Squadpage 2025-2026</p>
+	<h1 class="lg">Frontend Design & Development</h1>
+	<p class="sm">Squadpage 2025-2026</p>
 </header>
 
 {@render children?.()}
 
 <style>
 	header{
-		padding: clamp(10px, 5vw, 32px);
+		padding-inline: clamp(0.625rem, 5vw, 2.25rem);
+		padding-top: clamp(0.625rem, 5vw, 4rem);
+		padding-bottom: 0.625rem;
 
 		h1{
-			font-size: clamp(32px, 5vw, 96px);
-			margin-bottom: 12px;
-		}
-
-		p{
-			font-size: clamp(24px, 2vw, 32px);
+			margin-bottom: 0.75rem;
 		}
 	}
 </style>
