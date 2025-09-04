@@ -178,12 +178,22 @@
 
 <style>
   @import "./App.css";
+  
+  @font-face {
+  font-family: 'Lexend Deca';
+  src: url('src/lib/assets/lexenddeca.woff2') format('woff2'),
+       url('src/lib/assets/lexenddeca.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 
   :global(html, body) {
     height: 100%;
     background: var(--bg);
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Lexend Deca', sans-serif;
     font-size: 16px;
 
     @media (min-width: 62.5rem) {
@@ -312,6 +322,42 @@
       padding: 1rem 0;
     }
   }
+  
+  .person-container {
+    padding-block: 10vh;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+
+      .person {
+        opacity: 0;
+        transform: translateY(100%);
+        animation: animate-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 100%;
+      }
+    }
+  }
+
+  @keyframes animate-in {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    80% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+  }
 
   .float {
     z-index: 1;
@@ -338,7 +384,7 @@
       filter: blur(40px);
     }
   }
-
+  
   :global(.float :is(img, source)) {
     position: absolute;
     top: 0;
