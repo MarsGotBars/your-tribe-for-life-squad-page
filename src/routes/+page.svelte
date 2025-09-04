@@ -93,6 +93,74 @@ function removeOldImages() {
 >
 
 </picture>
+<main class="person-container">
+  {#each members as member, index}
+    <details
+      class="person"
+      onmouseenter={handleMouseEnter}
+      onmouseleave={handleMouseLeave}
+    >
+      <summary>
+        <div class="name-birthdate-container">
+          <h2>{member.name}</h2>
+          <p class="birthdate">
+            {member.age ? member.age + " Jaar" : "Leeftijd onbekend"}
+          </p>
+        </div>
+        <a class="cross" href="#">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><g class="plus-outline"
+              ><g
+                fill="#666"
+                fill-rule="evenodd"
+                class="Vector"
+                clip-rule="evenodd"
+                ><path
+                  d="M12 3a1 1 0 0 1 1 1v16a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1"
+                /><path
+                  d="M21 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h16a1 1 0 0 1 1 1"
+                /></g
+              ></g
+            ></svg
+          >
+        </a>
+      </summary>
+      <article>
+        <picture>
+          <source
+            srcset={`${member.mugshot.src}&format=avif`}
+            type="image/avif"
+          />
+          <source
+            srcset={`${member.mugshot.src}&format=webp`}
+            type="image/webp"
+          />
+          <img
+            src={`${member.mugshot.src}&format=jpg`}
+            alt="Mugshot van {member.name}"
+            data-name={member.name} 
+            width={member.mugshot.width}
+            height={member.mugshot.height}
+            loading={index >= 12 ? "lazy" : "eager"}
+          />
+        </picture>
+        <p>{member.bio}</p>
+        <a
+          class="githubhandle"
+          href="https://github.com/{member.github_handle}"
+          aria-label="Github link"
+        >
+          <p>Github</p>
+        </a>
+      </article>
+    </details>
+  {/each}
+</main>
+
 <style>
   @import "./App.css";
 
