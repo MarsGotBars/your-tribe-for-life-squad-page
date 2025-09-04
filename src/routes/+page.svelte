@@ -35,13 +35,22 @@
 
 <style>
   @import "./App.css";
-  @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+  
+  @font-face {
+  font-family: 'Lexend Deca';
+  src: url('src/lib/assets/lexenddeca.woff2') format('woff2'),
+       url('src/lib/assets/lexenddeca.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 
   :global(html, body) {
     height: 100%;
     background: var(--bg);
     margin: 0;
-     font-family: "Lexend Deca", sans-serif;
+    font-family: 'Lexend Deca', sans-serif;
     font-size: 16px;
 
     @media (min-width: 62.5rem) {
