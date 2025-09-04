@@ -178,22 +178,22 @@
 
 <style>
   @import "./App.css";
-  
-  @font-face {
-  font-family: 'Lexend Deca';
-  src: url('src/lib/assets/lexenddeca.woff2') format('woff2'),
-       url('src/lib/assets/lexenddeca.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
+  @font-face {
+    font-family: "Lexend Deca";
+    src:
+      url("src/lib/assets/lexenddeca.woff2") format("woff2"),
+      url("src/lib/assets/lexenddeca.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
 
   :global(html, body) {
     height: 100%;
     background: var(--bg);
     margin: 0;
-    font-family: 'Lexend Deca', sans-serif;
+    font-family: "Lexend Deca", sans-serif;
     font-size: 16px;
 
     @media (min-width: 62.5rem) {
@@ -205,7 +205,7 @@
     align-items: center;
     margin-inline: 0.63rem;
     border-bottom: 1px solid var(--accent);
-
+    transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     &:open {
       border-bottom: transparent;
     }
@@ -214,8 +214,15 @@
       margin-inline: 2.25rem;
     }
 
-    &:last-child {
-      border-bottom: none;
+    &:hover,
+    &:hover article {
+      border-color: #4e4e4e;
+    }
+
+    @supports (color: oklch(50% 0.2 30)) {
+      &:hover summary {
+        background: color-mix(in oklch, var(--bg) 95%, darkgray);
+      }
     }
 
     summary {
@@ -225,7 +232,9 @@
       align-items: center;
       cursor: pointer;
       padding-block: 0.63rem;
-
+      transition:
+        padding 0.3s ease,
+        background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       @media (min-width: 50rem) {
         padding-block: 2.25rem;
       }
@@ -252,12 +261,15 @@
         top: 50%;
         transform: translateY(-50%);
         font-size: 3rem;
-        color: var(--accent);
+        color: var(--text);
         display: flex;
         line-height: 0.75;
         align-items: center;
         justify-content: center;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      &:hover::after {
+        transform: translateY(-50%) rotate(15deg);
       }
     }
 
@@ -266,12 +278,11 @@
     }
 
     article {
-      margin-top: 2.25rem;
       border-top: 1px solid var(--accent);
-      margin-top: 0rem;
       padding-top: 1rem;
       display: flex;
       gap: 1.125rem;
+      transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       .group {
         max-width: 33%;
         display: flex;
@@ -322,14 +333,13 @@
       padding: 1rem 0;
     }
   }
-  
+
   .person-container {
     padding-block: 10vh;
   }
 
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-
       .person {
         opacity: 0;
         transform: translateY(100%);
@@ -384,7 +394,7 @@
       filter: blur(40px);
     }
   }
-  
+
   :global(.float :is(img, source)) {
     position: absolute;
     top: 0;
