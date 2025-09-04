@@ -128,6 +128,7 @@
 <main class="person-container">
   {#each members as member, index}
     <details
+      name="person"
       class="person"
       onmouseenter={handleMouseEnter}
       onmouseleave={handleMouseLeave}
@@ -139,27 +140,6 @@
             {member.age ? member.age + " Jaar" : "Leeftijd onbekend"}
           </p>
         </div>
-        <a class="cross" href="#">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            ><g class="plus-outline"
-              ><g
-                fill="#666"
-                fill-rule="evenodd"
-                class="Vector"
-                clip-rule="evenodd"
-                ><path
-                  d="M12 3a1 1 0 0 1 1 1v16a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1"
-                /><path
-                  d="M21 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h16a1 1 0 0 1 1 1"
-                /></g
-              ></g
-            ></svg
-          >
-        </a>
       </summary>
       <article>
         <picture>
@@ -229,6 +209,7 @@
     }
 
     summary {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -254,10 +235,24 @@
         }
       }
 
-      .cross {
+      &::after {
+        content: "+";
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3rem;
+        color: var(--accent);
         display: flex;
+        line-height: 0.75;
         align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
       }
+    }
+
+    &:open summary::after {
+      transform: translateY(-50%) rotate(135deg);
     }
 
     article {
@@ -320,12 +315,13 @@
   }
 
   .float {
+    z-index: 1;
     position: fixed;
     top: 0;
-    transform: translateY(-50%);
-    right: 15vw;
-    width: 18.75rem;
-    height: 20rem;
+    transform: translate(-50%, -50%);
+    right: 2.5%;
+    width: clamp(18.75rem, 24vw, 25rem);
+    height: clamp(20rem, 25vw, 30rem);
     background-color: transparent;
     pointer-events: none;
     display: grid;
