@@ -1,37 +1,89 @@
 <script>
+  import { onMount } from "svelte";
+
   let { data } = $props();
+  const members = data.membersData;
 
+  // Variables
+  let mouseY = $state(0);
+  let isHovering = $state(false);
+  let imgHistory = $state([]);
+  let floatContainer;
+
+  // Muis
+  function updateMousePosition(event) {
+    if (isHovering) {
+      mouseY = event.clientY;
+    }
+  }
+
+  // Timers voor het verwijderen van de oude images
+  let removalTimers = [];
+
+  // Muis Enter
+  function handleMouseEnter(event) {
+  // Als de muis over de person container gaat
+  isHovering = true;
+  // Vind de img element
+  const targetImg = event.target.closest("details").querySelector("img");
   
-  const members = data.membersData
-</script>
+  if (imgHistory.at(-1) === targetImg.src) {
+    return; // Don't add duplicate
+  }
+  // Cancel alle bestaande removal timers
+  removalTimers.forEach(timer => clearTimeout(timer));
+  // Reset de removalTimers array
+  removalTimers = [];
+  
+  // Voeg de images toe aan de imgHistory array
+  imgHistory = [...imgHistory, targetImg.src];
+  
+  // Creëer en voeg de nieuwe img element toe aan de floatContainer
+  const newImg = document.createElement("img");
+  newImg.src = targetImg.src;
+  newImg.alt = targetImg.alt ? targetImg.alt : "Mugshot van " + targetImg.dataset.name;
+  floatContainer.appendChild(newImg);
+  
+  // Start een nieuwe removal chain
+  const timer = setTimeout(() => {
+    removeOldImages();
+  }, 200);
+  // Voeg de timer toe aan de removalTimers array
+  removalTimers.push(timer);
+}
 
-  <main class="person-container">
-      {#each members as member, index }
-        <details class="person">
-           <summary>
-              <div class="name-birthdate-container">
-                <h2>{member.name}</h2>
-                <p class="birthdate">{member.age ? member.age + " Jaar" : "Leeftijd onbekend"}</p>
-              </div>
-            <a class="cross" href="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g class="plus-outline"><g fill="#666" fill-rule="evenodd" class="Vector" clip-rule="evenodd"><path d="M12 3a1 1 0 0 1 1 1v16a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1"/><path d="M21 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h16a1 1 0 0 1 1 1"/></g></g></svg>
-            </a>
-          </summary>
-          <article>
-            <picture>
-                <source srcset={`${member.mugshot.src}&format=avif`} type="image/avif">
-                <source srcset={`${member.mugshot.src}&format=webp`} type="image/webp">
-                <img src={`${member.mugshot.src}&format=jpg`} alt="Mugshot van {member.name}" width="{member.mugshot.width}" height="{member.mugshot.height}" loading={index >= 5 ? "lazy" : "eager"}>
-            </picture>
-            <p>{member.bio}</p>
-            <a class="githubhandle" href="https://github.com/{member.github_handle}" aria-label="Github link">
-              <p>Github</p>
-            </a>
-          </article>
-        </details>
-      {/each}
+  // Verwijder de oude images
+function removeOldImages() {
+  // Als er meer dan 1 image in de imgHistory array is en er meer dan 1 image in de floatContainer is
+  if (imgHistory.length > 1 && floatContainer.children.length > 1) {
+    // Verwijder de eerste image uit de imgHistory array
+    imgHistory = imgHistory.slice(1);
     
-  </main>
+    if (floatContainer.firstElementChild) {
+      // Verwijder de eerste image uit de floatContainer
+      floatContainer.removeChild(floatContainer.firstElementChild);
+    }
+    
+    // Als er meer dan 1 image in de imgHistory array is
+    if (imgHistory.length > 1) {
+      const timer = setTimeout(removeOldImages, 400);
+      // Voeg de timer toe aan de removalTimers array
+      removalTimers.push(timer);
+    }
+  }
+}
+
+  // Muis Leave
+  function handleMouseLeave() {
+    isHovering = false;
+  }
+
+  // Mount eventListener
+  onMount(() => {
+    window.addEventListener("mousemove", updateMousePosition);
+    return () => window.removeEventListener("mousemove", updateMousePosition);
+  });
+</script>
 
 <style>
   @import "./App.css";
