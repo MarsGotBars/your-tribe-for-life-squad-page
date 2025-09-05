@@ -6,6 +6,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<title>Squadpage 2025-2026 | FDND</title>
 </svelte:head>
 
 <header>
