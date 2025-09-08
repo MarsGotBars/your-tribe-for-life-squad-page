@@ -205,7 +205,7 @@
     align-items: center;
     margin-inline: 0.63rem;
     border-bottom: 1px solid var(--accent);
-    transition: border-color 0.3s var(--bezier);
+    transition: border-color 0.4s var(--bezier);
     &:open {
       border-bottom: transparent;
     }
