@@ -17,6 +17,8 @@
 {@render children?.()}
 
 <style>
+	@import "./App.css";
+
 	header{
 		padding-inline: clamp(0.625rem, 5vw, 2.25rem);
 		padding-top: clamp(0.625rem, 5vw, 4rem);

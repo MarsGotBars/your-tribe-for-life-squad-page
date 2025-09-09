@@ -1,6 +1,6 @@
 export async function load({ url }) {
   const members = await fetch(
-    "https://fdnd.directus.app/items/person?fields=name,github_handle,bio,profilecard,mugshot,birthdate&filter[squads][squad_id][cohort][_eq]=2526&filter[squads][squad_id][tribe][name][_eq]=FDND%20Jaar%202"
+    "https://fdnd.directus.app/items/person?fields=id,name,github_handle,bio,profilecard,mugshot,birthdate&filter[squads][squad_id][cohort][_eq]=2526&filter[squads][squad_id][tribe][name][_eq]=FDND%20Jaar%202"
   );
 
   const { data: membersData } = await members.json();
