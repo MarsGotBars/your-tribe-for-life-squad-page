@@ -184,7 +184,7 @@
     align-items: center;
     margin-inline: 0.63rem;
     border-bottom: 1px solid var(--accent);
-    transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.4s var(--bezier);
     &:open {
       border-bottom: transparent;
     }
@@ -236,7 +236,7 @@
         line-height: 0.75;
         align-items: center;
         justify-content: center;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.3s var(--bezier);
       }
       &:hover::after {
         transform: translateY(-50%) rotate(15deg);
@@ -252,7 +252,7 @@
       padding-top: 1rem;
       display: flex;
       gap: 1.125rem;
-      transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: border-color 0.3s var(--bezier);
       .group {
         max-width: 33%;
         display: flex;
@@ -351,8 +351,8 @@
     pointer-events: none;
     display: grid;
     transition:
-      opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity 0.4s var(--bezier),
+      filter 0.4s var(--bezier);
 
     &[data-active="shown"] {
       opacity: 1;
@@ -373,7 +373,7 @@
     width: 100%;
     object-fit: cover;
     object-position: center;
-    animation: clip-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: clip-in 0.4s var(--bezier);
   }
 
   @keyframes clip-in {

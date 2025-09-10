@@ -34,6 +34,9 @@ body {
     --bg: #080808;
     --text: #ecffe7;
     --accent: #252525;
+
+    --bezier: cubic-bezier(0.4, 0, 0.2, 1);
+
     background: var(--bg);
     color: var(--text);
 }
