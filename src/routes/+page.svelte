@@ -177,28 +177,6 @@
 </main>
 
 <style>
-  @font-face {
-    font-family: "Lexend Deca";
-    src:
-      url("/fonts/lexenddeca.woff2") format("woff2"),
-      url("/fonts/lexenddeca.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  :global(html, body) {
-    height: 100%;
-    background: var(--bg);
-    margin: 0;
-    font-family: "Lexend Deca", sans-serif;
-    font-size: 16px;
-
-    @media (min-width: 62.5rem) {
-      font-size: 1.1rem;
-    }
-  }
-
   .person {
     align-items: center;
     margin-inline: 0.63rem;
