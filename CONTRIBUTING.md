@@ -9,4 +9,5 @@
 
 ## Animatie
 - We animeren omhoog met clip-path.
-- We hanteren een max duration van 0.3s.
+- We hanteren een max duration van `0.4s`. 
+  - Voor elementen zoals de plaatjes op de overview-page; gebruiken we `0.4s`; voor kleinere elemeten is `< 0.4` gewild.
