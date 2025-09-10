@@ -177,8 +177,6 @@
 </main>
 
 <style>
-  @import "./App.css";
-
   @font-face {
     font-family: "Lexend Deca";
     src:
