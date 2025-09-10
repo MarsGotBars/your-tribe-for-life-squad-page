@@ -25,13 +25,14 @@
 
   // Muis Enter
   function handleMouseEnter(event) {
+    
     // Only enable hover effect on large screens
     if (!isLargeScreen) return;
 
     // Als de muis over de person container gaat
     isHovering = true;
     // Vind de img element
-    const targetImg = event.target.closest("details").querySelector("img");
+    const targetImg = event.target.closest("li").querySelector("img");
 
     if (imgHistory.at(-1) === targetImg.src) {
       return; // Don't add duplicate
@@ -118,6 +119,11 @@
   });
 </script>
 
+<header>
+  <h1 class="lg">Frontend Design & Development</h1>
+  <p class="sm">Squadpage 2025-2026</p>
+</header>
+
 <picture
   class="float"
   data-active={isHovering ? "shown" : "hidden"}
@@ -125,23 +131,22 @@
   bind:this={floatContainer}
 >
 </picture>
-<main class="person-container">
+<ul class="person-container">
   {#each members as member, index}
-    <details
+    <li
       name="person"
       class="person"
       onmouseenter={handleMouseEnter}
       onmouseleave={handleMouseLeave}
     >
-      <summary>
-        <div class="name-birthdate-container">
+      <a href="/{member.id}">
+        <div>
           <h2 class="md">{member.name}</h2>
           <p class="birthdate">
             {member.age ? member.age + " Jaar" : "Leeftijd onbekend"}
           </p>
         </div>
-      </summary>
-      <article>
+
         <picture>
           <source
             srcset={`${member.mugshot.src}&format=avif`}
@@ -160,171 +165,72 @@
             loading={index >= 12 ? "lazy" : "eager"}
           />
         </picture>
-        <div class="group">
-          <p>{member.bio ? member.bio : "Ik heb niks opgeschreven :)"}</p>
-
-          <a
-            class="githubhandle"
-            href="https://github.com/{member.github_handle}"
-            aria-label="Github link"
-          >
-            <span>Github</span>
-          </a>
-        </div>
-      </article>
-    </details>
+      </a>
+    </li>
   {/each}
-</main>
+</ul>
 
 <style>
-  @font-face {
-    font-family: "Lexend Deca";
-    src:
-      url("/fonts/lexenddeca.woff2") format("woff2"),
-      url("/fonts/lexenddeca.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  header {
+    margin-bottom: 2rem;
   }
 
-  :global(html, body) {
-    height: 100%;
-    background: var(--bg);
-    margin: 0;
-    font-family: "Lexend Deca", sans-serif;
-    font-size: 16px;
-
-    @media (min-width: 62.5rem) {
-      font-size: 1.1rem;
-    }
+  h1 + p {
+    margin-top: 1.75rem;
   }
 
   .person {
-    align-items: center;
-    margin-inline: 0.63rem;
+    list-style: none;
     border-bottom: 1px solid var(--accent);
-    transition: border-color 0.4s var(--bezier);
-    &:open {
-      border-bottom: transparent;
-    }
-
-    @media (min-width: 50rem) {
-      margin-inline: 2.25rem;
-    }
-
-    &:hover,
-    &:hover article {
-      border-color: #4e4e4e;
-    }
-
-    summary {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      padding-block: 0.63rem;
-      @media (min-width: 50rem) {
-        padding-block: 2.25rem;
-      }
-
-      h2 {
-        margin: 0;
-        color: var(--text);
-      }
-
-      .birthdate {
-        margin: 0;
-        font-size: 1.25rem;
-        color: var(--text);
-        padding-top: 0.5rem;
-        @media (min-width: 50rem) {
-          padding-top: unset;
-        }
-      }
-
-      &::after {
-        content: "+";
-        position: absolute;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 3rem;
-        color: var(--text);
-        display: flex;
-        line-height: 0.75;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s var(--bezier);
-      }
-      &:hover::after {
-        transform: translateY(-50%) rotate(15deg);
-      }
-    }
-
-    &:open summary::after {
-      transform: translateY(-50%) rotate(135deg);
-    }
-
-    article {
-      border-top: 1px solid var(--accent);
-      padding-top: 1rem;
-      display: flex;
-      gap: 1.125rem;
-      transition: border-color 0.3s var(--bezier);
-      .group {
-        max-width: 33%;
-        display: flex;
-        justify-content: space-between;
-        gap: 0.75rem;
-        flex-direction: column;
-        @media (min-width: 62.5rem) {
-          max-width: min(70ch, 50%);
-        }
-      }
-
-      picture {
-        display: inline-block;
-        max-width: 50%;
-        @media (min-width: 62.5rem) {
-          display: none;
-        }
-        img {
-          width: 100%;
-          max-width: 100%;
-          height: auto;
-          object-fit: cover;
-          display: block;
-        }
-      }
-    }
+    transition: border .15s var(--bezier);
+    color: var(--text);
   }
 
-  .name-birthdate-container {
-    flex-grow: 1;
-    display: block;
-
-    @media (min-width: 50rem) {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      flex: 0 0 66%;
-      gap: 2rem;
-    }
+  .person:hover{
+    border-bottom: 1px solid #4e4e4e;
   }
 
-  .githubhandle {
-    all: unset;
-    cursor: pointer;
-
-    span {
-      font-size: 1.25rem;
-      padding: 1rem 0;
-    }
+  .person a {
+    color: inherit;
+    padding-top: 1.5rem;
+    padding-bottom: 2.25rem;
+    display: flex;
+    position: relative;
   }
 
-  .person-container {
-    padding-block: 10vh;
+  .person a p{
+    margin-top: .25rem;
+  }
+
+  .person a::after{
+    --size: .75rem;
+    content: '';
+    position: absolute;
+    right: calc(var(--size) * 2);
+    top: 50%;
+    width: var(--size);
+    height: var(--size);
+    border-right: 1px solid var(--text);
+    border-top: 1px solid var(--text);
+    transform: translate(0rem, -50%) rotate(45deg);
+    transition: border-width var(--bezier) .15s, transform var(--bezier) .3s;
+  }
+
+  .person a:hover::after{
+    border-width: 2px;
+    transform: translate(var(--size), -50%) rotate(45deg);
+  }
+
+  .person a div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    flex: 0 0 66%;
+    gap: 2rem;
+  }
+
+  .person picture {
+    display: none;
   }
 
   @supports (animation-timeline: view()) {
