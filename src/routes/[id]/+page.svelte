@@ -89,6 +89,10 @@
       margin-top: 1rem;
       z-index: 1000;
 
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
       @media (max-width: 600px) {
         width: 25rem;
       }
@@ -154,10 +158,26 @@
   }
 
   .bio {
-    width: 40%;
+    width: 30rem;
     margin-inline: auto;
-    margin-block: 1rem;
+    margin-block: 2rem;
   }
 
+  @supports (animation-timeline: scroll()) {
+    .profile-img img {
+      animation: fade-out linear;
+      animation-timeline: scroll(block root); //verticaal
+      animation-range: 0% 100%;
+    }
+
+  @keyframes fade-out {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: .20;
+      }
+    }
+  }
 
 </style>
