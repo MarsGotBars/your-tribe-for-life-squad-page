@@ -7,15 +7,15 @@
   font-display: swap;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-  outline: none;
-  font-size: 1rem;
-  line-height: 1;
-  text-decoration: none;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
 }
 
 body {
@@ -23,6 +23,7 @@ body {
   --text: #ecffe7;
   --accent: #252525;
   --bezier: cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 4rem 2.25rem;
   background: var(--bg);
   color: var(--text);
 }
