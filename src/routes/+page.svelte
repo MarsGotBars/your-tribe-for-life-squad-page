@@ -25,7 +25,6 @@
 
   // Muis Enter
   function handleMouseEnter(event) {
-    
     // Only enable hover effect on large screens
     if (!isLargeScreen) return;
 
@@ -120,8 +119,8 @@
 </script>
 
 <header>
-  <h1 class="lg">Frontend Design & Development</h1>
-  <p class="sm">Squadpage 2025-2026</p>
+  <h1 class="lg" style="--delay: .1s">Frontend Design & Development</h1>
+  <p class="sm" style="--delay: .15s">Squadpage 2025-2026</p>
 </header>
 
 <picture
@@ -131,9 +130,11 @@
   bind:this={floatContainer}
 >
 </picture>
+
 <ul class="person-container">
   {#each members as member, index}
     <li
+      style="--delay: {0.15 + 0.3 * index}s"
       name="person"
       class="person"
       onmouseenter={handleMouseEnter}
@@ -142,7 +143,7 @@
       <a href="/{member.id}">
         <div>
           <h2 class="md">{member.name}</h2>
-          <p class="birthdate">
+          <p class="birthdate sm">
             {member.age ? member.age + " Jaar" : "Leeftijd onbekend"}
           </p>
         </div>
@@ -175,6 +176,18 @@
     margin-bottom: 2rem;
   }
 
+  header > * {
+    transform: translateY(-10px);
+    clip-path: inset(0 0 100% 0);
+    animation: clip-out var(--bezier) 0.5s var(--delay, 0.15s) forwards;
+  }
+
+  ul > * {
+    transform: translateY(-10px);
+    clip-path: inset(0 0 100% 0);
+    animation: clip-out var(--bezier) 0.5s var(--delay, 0.2s) forwards;
+  }
+
   h1 + p {
     margin-top: 1.75rem;
   }
@@ -182,11 +195,11 @@
   .person {
     list-style: none;
     border-bottom: 1px solid var(--accent);
-    transition: border .15s var(--bezier);
+    transition: border 0.15s var(--bezier);
     color: var(--text);
   }
 
-  .person:hover{
+  .person:hover {
     border-bottom: 1px solid #4e4e4e;
   }
 
@@ -198,13 +211,13 @@
     position: relative;
   }
 
-  .person a p{
-    margin-top: .25rem;
+  .person a p {
+    margin-top: 0.25rem;
   }
 
-  .person a::after{
-    --size: .75rem;
-    content: '';
+  .person a::after {
+    --size: 0.75rem;
+    content: "";
     position: absolute;
     right: calc(var(--size) * 2);
     top: 50%;
@@ -213,10 +226,12 @@
     border-right: 1px solid var(--text);
     border-top: 1px solid var(--text);
     transform: translate(0rem, -50%) rotate(45deg);
-    transition: border-width var(--bezier) .15s, transform var(--bezier) .3s;
+    transition:
+      border-width var(--bezier) 0.15s,
+      transform var(--bezier) 0.3s;
   }
 
-  .person a:hover::after{
+  .person a:hover::after {
     border-width: 2px;
     transform: translate(var(--size), -50%) rotate(45deg);
   }
@@ -306,6 +321,14 @@
       clip-path: inset(100% 0 0 0);
     }
     to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes clip-out {
+    to {
+      transform: translateY(0px);
+      opacity: 1;
       clip-path: inset(0 0 0 0);
     }
   }
