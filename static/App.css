@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Lexend Deca";
+  src: url("/fonts/lexenddeca.woff2") format("woff2"),
+    url("/fonts/lexenddeca.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -31,17 +40,17 @@ a {
 }
 
 .lg {
-    font-size: clamp(2rem, 6vw, 6rem);
+  font-size: clamp(2rem, 6vw, 6rem);
 }
 
-.md{
-    font-size: clamp(2.25rem, 3.5vw, 3.375rem);
+.md {
+  font-size: clamp(2.25rem, 3.5vw, 3.375rem);
 }
 
-.sm{
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
+.sm {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
-.xs{
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
+.xs {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
 }
