@@ -131,10 +131,9 @@
 >
 </picture>
 
-<ul class="person-container">
+<ul class="person-container" style="--delay: .2s">
   {#each members as member, index}
     <li
-      style="--delay: {0.15 + 0.3 * index}s"
       name="person"
       class="person"
       onmouseenter={handleMouseEnter}
@@ -177,15 +176,15 @@
   }
 
   header > * {
-    transform: translateY(-10px);
-    clip-path: inset(0 0 100% 0);
-    animation: clip-out var(--bezier) 0.5s var(--delay, 0.15s) forwards;
+    transform: translate(-10px, -10px);
+    clip-path: inset(0 100% 0 0);
+    animation: clip-right var(--bezier) .5s var(--delay, .15s) forwards;
   }
 
-  ul > * {
-    transform: translateY(-10px);
-    clip-path: inset(0 0 100% 0);
-    animation: clip-out var(--bezier) 0.5s var(--delay, 0.2s) forwards;
+  ul {
+    transform: translate(-10px, -10px);
+    clip-path: inset(0 100% 0 0);
+    animation: clip-right var(--bezier) .5s var(--delay, .2s) forwards;
   }
 
   h1 + p {
@@ -251,7 +250,6 @@
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .person {
-        opacity: 0;
         transform: translateY(100%);
         animation: animate-in linear both;
         animation-timeline: view();
@@ -325,10 +323,9 @@
     }
   }
 
-  @keyframes clip-out {
+  @keyframes clip-right {
     to {
-      transform: translateY(0px);
-      opacity: 1;
+      transform: translate(0, 0);
       clip-path: inset(0 0 0 0);
     }
   }
