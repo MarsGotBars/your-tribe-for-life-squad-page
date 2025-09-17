@@ -109,16 +109,21 @@
       position: fixed;
       aspect-ratio: 2 / 3;
       object-fit: cover;
-      max-width: 30rem;
+      max-width: 27rem;
       height: auto;
       display: block;
       margin-top: 1rem;
       z-index: 10;
       margin-inline: 0.63rem;
 
-      @media (max-width: 600px) {
-        width: 17rem;
+      @media (max-width: 57rem) {
+        width: 20rem;
       }
+      
+      @media (max-width: 37.5rem) {
+        width: 16rem;
+      }
+      
     }
   }
 
@@ -129,7 +134,7 @@
     left: 0;
     padding-inline: 2.25rem;
 
-    @media (max-width: 600px) {
+    @media (max-width: 37.5rem) {
       padding-inline: 0.63rem;
 
       article {
@@ -149,10 +154,10 @@
   .table {
     display: flex;
     align-items: start;
-    justify-content: center;
+    justify-content: space-between;
     border-top: 1px solid var(--accent);
 
-    @media (max-width: 600px) {
+    @media (max-width: 37.5rem) {
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
@@ -161,7 +166,6 @@
 
     article {
       padding-block: 1rem;
-      flex: 1 1 0;
     }
 
     h2 {
@@ -172,22 +176,31 @@
       /* margin-bottom: .5rem; */
       position: relative;
       z-index: 20;
-      white-space: wrap;
-      word-break: break-word;
+      max-width: 70%;
+
+      @media (max-width: 75rem) {
+        max-width: 50%;
+      }
+
+      @media (max-width: 37.5rem) {
+        max-width: 100%;
+      }
+
+
     }
   }
 
   .outline-right {
     text-align: right;
 
-    @media (max-width: 600px) {
+    @media (max-width: 37.5rem) {
       text-align: left;
     }
 
   }
 
   .bio {
-    width: 30rem;
+    width: 27rem;
     margin-inline: auto;
     padding-top: 1rem;
     padding-bottom: 3rem;
