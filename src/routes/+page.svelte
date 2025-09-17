@@ -236,11 +236,17 @@
   }
 
   .person a div {
-    display: grid;
+    display: block;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     flex: 0 0 66%;
     gap: 2rem;
+  }
+
+  @media (min-width: 50rem) {
+    .person a div {
+      display: grid;
+    }
   }
 
   .person picture {
