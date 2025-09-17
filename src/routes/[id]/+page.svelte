@@ -7,7 +7,12 @@
 </script>
 
 <header class="back-link">
-  <a href="">Terug naar overzicht</a>
+  <a class="xs" href="/">
+    <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 7.5L1.29289 6.79289L0.585786 7.5L1.29289 8.20711L2 7.5ZM2 7.5L2.70711 8.20711L9.20711 1.70711L8.5 1L7.79289 0.292894L1.29289 6.79289L2 7.5ZM8.5 14L9.20711 13.2929L2.70711 6.79289L2 7.5L1.29289 8.20711L7.79289 14.7071L8.5 14Z" fill="#ECFFE7"/>
+    </svg>
+    Terug naar overzicht
+  </a>
 </header>
 
 <main>
@@ -69,6 +74,22 @@
 </main>
 
 <style>
+  .back-link {
+    z-index: 2000;
+    position: relative;
+    display: flex;
+    margin: 2rem;
+
+    a {
+      display: flex;
+      align-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+  }
+
   .about {
     display: flex;
     justify-content: center;
@@ -89,12 +110,8 @@
       margin-top: 1rem;
       z-index: 1000;
 
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
       @media (max-width: 600px) {
-        width: 25rem;
+        width: 17rem;
       }
     }
   }
@@ -104,8 +121,11 @@
     width: 100%;
     top: 0;
     left: 0;
+    padding-inline: 2.25rem;
 
     @media (max-width: 600px) {
+      padding-inline: 0.63rem;
+
       article {
         width: 100%;
         border-top: 1px solid var(--accent);
@@ -137,14 +157,15 @@
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      padding-block: 1rem;
     }
 
     h2 {
-      margin-top: 1rem;
+      /* margin-top: 1rem; */
     }
 
     p {
-      margin-bottom: .5rem;
+      /* margin-bottom: .5rem; */
     }
   }
 
@@ -160,22 +181,24 @@
   .bio {
     width: 30rem;
     margin-inline: auto;
-    margin-block: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
   }
 
   @supports (animation-timeline: scroll()) {
     .profile-img img {
       animation: fade-out linear;
-      animation-timeline: scroll(block root); //verticaal
+      animation-timeline: scroll(block root);
       animation-range: 0% 100%;
     }
 
-  @keyframes fade-out {
+    @keyframes fade-out {
       from {
         opacity: 1;
       }
       to {
         opacity: .20;
+        transform: translateY(-30rem);
       }
     }
   }
