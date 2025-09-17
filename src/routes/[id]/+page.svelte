@@ -46,7 +46,7 @@
           </article>
           <article class="outline-right">
             <h2>Functie</h2>
-            <p class="md">{member.role}</p>
+            <p class="md">{ member.role[0] == "member" ? "Student" : "Docent" }</p>
           </article>
         </div>
       </div>
