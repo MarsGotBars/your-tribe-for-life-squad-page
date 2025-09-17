@@ -6,25 +6,37 @@
   font-style: normal;
   font-display: swap;
 }
- 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-  outline: none;
-  font-size: 1rem;
-  line-height: 1;
-  text-decoration: none;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
 }
- 
+
 body {
   --bg: #080808;
   --text: #ecffe7;
   --accent: #252525;
   --bezier: cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 4rem 2.25rem;
   background: var(--bg);
   color: var(--text);
+}
+
+html,
+body {
+  background: var(--bg);
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 16px;
+}
+
+a {
+  font-size: inherit;
 }
  
 html,
@@ -41,15 +53,15 @@ a {
 .lg {
   font-size: clamp(2rem, 6vw, 6rem);
 }
- 
+
 .md {
   font-size: clamp(2.25rem, 3.5vw, 3.375rem);
 }
- 
+
 .sm {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
- 
+
 .xs {
   font-size: clamp(1.125rem, 2vw, 1.5rem);
 }
