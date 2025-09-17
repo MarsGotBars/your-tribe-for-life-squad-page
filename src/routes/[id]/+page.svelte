@@ -8,7 +8,7 @@
 
 <header class="back-link">
   <a class="xs" href="/">
-    <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="icon" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M2 7.5L1.29289 6.79289L0.585786 7.5L1.29289 8.20711L2 7.5ZM2 7.5L2.70711 8.20711L9.20711 1.70711L8.5 1L7.79289 0.292894L1.29289 6.79289L2 7.5ZM8.5 14L9.20711 13.2929L2.70711 6.79289L2 7.5L1.29289 8.20711L7.79289 14.7071L8.5 14Z" fill="#ECFFE7"/>
     </svg>
     Terug naar overzicht
@@ -80,6 +80,11 @@
     display: flex;
     margin: 2rem;
 
+    .icon {
+      width: .8em;
+      height: auto;
+    }
+
     a {
       display: flex;
       align-content: center;
@@ -104,11 +109,12 @@
       position: fixed;
       aspect-ratio: 2 / 3;
       object-fit: cover;
-      width: 30rem;
+      max-width: 30rem;
       height: auto;
       display: block;
       margin-top: 1rem;
-      z-index: 1000;
+      z-index: 10;
+      margin-inline: 0.63rem;
 
       @media (max-width: 600px) {
         width: 17rem;
@@ -143,7 +149,7 @@
   .table {
     display: flex;
     align-items: start;
-    justify-content: space-between;
+    justify-content: center;
     border-top: 1px solid var(--accent);
 
     @media (max-width: 600px) {
@@ -154,10 +160,8 @@
     }  
 
     article {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
       padding-block: 1rem;
+      flex: 1 1 0;
     }
 
     h2 {
@@ -166,6 +170,10 @@
 
     p {
       /* margin-bottom: .5rem; */
+      position: relative;
+      z-index: 20;
+      white-space: wrap;
+      word-break: break-word;
     }
   }
 
