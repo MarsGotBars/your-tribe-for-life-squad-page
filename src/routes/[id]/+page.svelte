@@ -78,7 +78,6 @@
     z-index: 2000;
     position: relative;
     display: flex;
-    margin: 2rem;
 
     .icon {
       width: .8em;
@@ -117,11 +116,11 @@
       margin-inline: 0.63rem;
 
       @media (max-width: 57rem) {
-        width: 20rem;
+        width: 16rem;
       }
       
       @media (max-width: 37.5rem) {
-        width: 16rem;
+        width: 15rem;
       }
       
     }
