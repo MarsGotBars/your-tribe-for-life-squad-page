@@ -211,7 +211,7 @@
   }
 
   .person a p {
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
   }
 
   .person a::after {
@@ -246,6 +246,10 @@
   @media (min-width: 50rem) {
     .person a div {
       display: grid;
+    }
+
+    .person a p {
+      margin-top: unset;
     }
   }
 
