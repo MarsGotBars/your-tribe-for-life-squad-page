@@ -126,7 +126,7 @@
 <picture
   class="float"
   data-active={isHovering ? "shown" : "hidden"}
-  style="top: {mouseY}px;"
+  style="transform: translate(-50%,calc(-50% + {mouseY}px));"
   bind:this={floatContainer}
 >
 </picture>
