@@ -141,7 +141,7 @@
     >
       <a href="/{member.id}">
         <div>
-          <h2 class="md">{member.name}</h2>
+          <h2 class="md" style="view-transition-name: member-{member.id}">{member.name}</h2>
           <p class="birthdate sm">
             {member.age ? member.age + " Jaar" : "Leeftijd onbekend"}
           </p>
@@ -162,8 +162,8 @@
             data-name={member.name}
             width={member.mugshot.width}
             height={member.mugshot.height}
-            loading={index >= 12 ? "lazy" : "eager"}
-          />
+            loading={index >= 12 ? "lazy" : "eager"}          
+            />
         </picture>
       </a>
     </li>
