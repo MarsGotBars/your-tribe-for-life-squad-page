@@ -34,11 +34,18 @@ body {
   font-family: "Lexend Deca", sans-serif;
   font-size: 16px;
 }
-
+ 
+html,
+body {
+  background: var(--bg);
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 16px;
+}
+ 
 a {
   font-size: inherit;
 }
-
+ 
 .lg {
   font-size: clamp(2rem, 6vw, 6rem);
 }
