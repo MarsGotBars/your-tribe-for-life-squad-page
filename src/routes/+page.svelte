@@ -126,7 +126,7 @@
 <picture
   class="float"
   data-active={isHovering ? "shown" : "hidden"}
-  style="top: {mouseY}px;"
+  style="--mouseCord: {mouseY}px;"
   bind:this={floatContainer}
 >
 </picture>
@@ -288,10 +288,11 @@
   }
 
   .float {
+    --mouseCord: 0;
     z-index: 1;
     position: fixed;
     top: 0;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, calc(-50% + var(--mouseCord)));
     right: 2.5%;
     width: clamp(18.75rem, 24vw, 25rem);
     height: clamp(20rem, 25vw, 30rem);
