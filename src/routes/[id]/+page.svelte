@@ -42,7 +42,7 @@
         <div class="table">
           <article>
             <h2>Naam</h2>
-            <p class="md">{member.name}</p>
+            <p class="md" style="view-transition-name: member-{member.id}">{member.name}</p>
           </article>
           <article class="outline-right">
             <h2>Functie</h2>
